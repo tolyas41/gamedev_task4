@@ -1,15 +1,16 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <iostream>
 
 class Graph {
 
-	static int vertices;
-	static std::vector<std::vector<Graph>> paths;
+	static std::vector<std::vector<std::string>> paths;
 
 	std::string name;
 
 public:
+	static int count;
 
 	Graph();
 	Graph(std::string init_name);
@@ -30,5 +31,12 @@ public:
 //move operator
 	Graph& operator=(Graph&& source) noexcept;
 
+//add paths
+	void addPaths(const Graph& connectedVertex);
+//print paths
+	static void printPaths();
+
+//tets func
+	void print_();
 };
 

@@ -5,10 +5,10 @@
 
 class Graph {
 
-	static std::vector<std::vector<std::string>> paths;
+	static std::vector<std::vector<Graph>> paths;
 
 	std::string name;
-
+	int position_in_paths;
 public:
 	static int count;
 
@@ -29,7 +29,7 @@ public:
 	Graph& operator=(const Graph& source);
 
 //move operator
-	Graph& operator=(Graph&& source) noexcept;
+	Graph& operator=(Graph&& source);
 
 //add paths
 	void addPaths(const Graph& connectedVertex);
@@ -38,5 +38,11 @@ public:
 
 //tets func
 	void print_();
+
+	bool operator==(const Graph& right_obj);
+
+
 };
+
+
 

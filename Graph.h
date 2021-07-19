@@ -10,7 +10,6 @@ class Graph {
 	std::string name;
 	int position_in_paths;
 public:
-	static int count;
 
 	Graph();
 	Graph(std::string init_name);
@@ -29,17 +28,18 @@ public:
 	Graph& operator=(const Graph& source);
 
 //move operator
-	Graph& operator=(Graph&& source);
+	Graph& operator=(Graph&& source) noexcept;
+
 
 //add paths
 	void addPaths(const Graph& connectedVertex);
 //print paths
 	static void printPaths();
 
-//tets func
-	void print_();
 
 	bool operator==(const Graph& right_obj);
+
+	bool operator!=(const Graph& right_obj);
 
 
 };

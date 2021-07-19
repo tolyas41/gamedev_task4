@@ -5,7 +5,7 @@
 
 class Graph {
 
-	static std::vector<std::vector<Graph>> paths;
+	static std::vector<std::vector<Graph*>> paths;
 
 	std::string name;
 	int position_in_paths;
@@ -32,7 +32,7 @@ public:
 
 
 //add paths
-	void addPaths(const Graph& connectedVertex);
+	void addPaths( Graph& connectedVertex);
 //print paths
 	static void printPaths();
 

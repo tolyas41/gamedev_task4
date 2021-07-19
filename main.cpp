@@ -10,8 +10,10 @@ int main() {
 	Graph v3("3");
 	Graph v4("4");
 	Graph v5("5");
-	Graph v6 = Graph("6");		//move constr
-	v5 = Graph("99");			//move assign
+	Graph::printPaths();
+
+	Graph v6 = Graph("6");		
+	v5 = Graph("99");			
 	Graph::printPaths();
 
 	v1.addPaths(v2);
@@ -21,7 +23,7 @@ int main() {
 	v4.addPaths(v1);
 	v6.addPaths(v5);
 	Graph::printPaths();
-	v1 = v2;					//copy assign
+	v1 = v2;					
 	v3.addPaths(v4);
 	Graph::printPaths();
 

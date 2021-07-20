@@ -1,83 +1,29 @@
 #include "Graph.h"
-#include <algorithm>
+#include <iostream>
 
-std::vector<std::vector<Graph*>> Graph::paths;
-
-Graph::Graph()
-	: Graph("none") {
+Graph::Graph() {
 }
 
-Graph::Graph(std::string init_name) {
-	name = init_name; 
-	position_in_paths = paths.size();
-
-	paths.push_back(std::vector<Graph*>());
-	paths[position_in_paths].push_back(this);
-}
-
-
-
-//copy constructor
-Graph::Graph(const Graph& source) 
-	: name(source.name), position_in_paths(source.position_in_paths) {
-}
-
-//move constructor
-Graph::Graph(Graph&& source) 
-	: name(source.name), position_in_paths(source.position_in_paths) {
-}
-
-//destructor
 Graph::~Graph() {
 }
 
-//copy assignment operator
-Graph& Graph::operator=(const Graph& source) {
-	paths.erase(paths.begin() + position_in_paths);
-
-	for (auto& remove_this : paths) {
-		remove_this.erase(std::remove(remove_this.begin(), remove_this.end(), this), remove_this.end());
-	}
-
-	name = source.name;
-	position_in_paths = source.position_in_paths;
-	return *this;
+void Graph::addNode(Node& node) {
+	graph.push_back(&node);
 }
 
-//move assignment operator
-Graph& Graph::operator=(Graph&& source) noexcept {
-
-	name = source.name;
-	return *this;
-}
-
-//add paths
-void Graph::addPaths( Graph& connectedVertex) {
-	if (std::find(paths[position_in_paths].begin(), paths[position_in_paths].end(), &connectedVertex)
-		!= paths[position_in_paths].end()) { 
-	}
-	else {
-		if (name != connectedVertex.name) {
-			paths[position_in_paths].push_back(&connectedVertex);
-			paths[connectedVertex.position_in_paths].push_back(this);
+void Graph::printGraph() const {
+	for (const Node* node : graph) {
+		if (node->name != "") {
+			std::cout << "\n" << node->name << " - ";
+			for (const Node* linkedNode : node->links) {
+				if (linkedNode->name != "") {
+					std::cout << linkedNode->name << " ";
+				}
+			}
 		}
 	}
 }
 
-//print paths
-void Graph::printPaths() {
-	for (std::vector<Graph*> &vect1D : paths) {
-		for (auto x : vect1D) {
-			std::cout << x->name << " ";
-		}
-		std::cout << std::endl;
-	}
-}
-
-bool Graph::operator==(const Graph& right_obj) {
-	return name == right_obj.name;
-}
-
-bool Graph::operator!=(const Graph& right_obj) {
-	return name != right_obj.name;
+void Graph::deleteNode(const Node& node) {
+	graph.erase(std::remove(graph.begin(), graph.end(), &node), graph.end());
 }
